@@ -2,6 +2,9 @@
 
 A simple Python implementation of the classic Snake game. The player controls a snake that moves around the screen, eating food to grow longer while avoiding collisions with the walls and itself.
 
+(INSERT GIF HERE)
+![Snake Game Screenshot](screenshot.png)
+
 ### Prerequisites
 
 - Python 3.6 or higher
