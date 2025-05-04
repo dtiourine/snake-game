@@ -2,12 +2,8 @@ import pygame
 
 pygame.init()
 
-width = 1280
-height = 720
-
-screen = pygame.display.set_mode((width, height))
-
-pygame.display.set_caption("Snake Game")
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
 running = True
 
 while running:
@@ -15,14 +11,10 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("black")
+    screen.fill('purple')
 
     pygame.display.flip()
 
-pygame.quit()
+    clock.tick(60)
 
-# def main():
-#     init()
-#
-# if __name__ == '__main__':
-#     main()
+pygame.quit()
