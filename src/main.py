@@ -1,4 +1,5 @@
 import pygame
+from pygame import Rect
 
 pygame.init()
 
@@ -7,16 +8,20 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+
+# player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+# snake = Rect(left=screen.get_width() / 2, top =  screen.get_height() / 2, width=1, height=1 )
+
+snake = Rect(screen.get_width() / 2, screen.get_height() / 2, 20, 20)
 
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill('purple')
+    screen.fill('black')
 
-    pygame.draw.circle(screen, "red", player_pos, 40)
+    pygame.draw.rect(screen,"green", snake)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
