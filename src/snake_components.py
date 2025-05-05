@@ -48,6 +48,16 @@ class SnakeBodySegment:
     def update_direction(self, direction: str):
         """Updates direction of segment to match direction of argument"""
 
+        # Don't update direction if trying to move in the opposite direction of where currently moving
+        if ((direction == 'right' and self.current_direction == 'left')
+            or
+            (direction == 'left' and self.current_direction == 'right')
+            or
+            (direction == 'up' and self.current_direction == 'down')
+            or
+            (direction == 'down' and self.current_direction == 'up')):
+            return
+
         # If the snake segment is turning and there is another segment behind it
         if direction != self.current_direction:
             if self.previous_segment:
