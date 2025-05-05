@@ -15,9 +15,9 @@ snake_speed = 5
 # player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 # snake = Rect(left=screen.get_width() / 2, top =  screen.get_height() / 2, width=1, height=1 )
 
-snake = Rect(screen.get_width() / 2, screen.get_height() / 2, 20, 20)
-snake_body = Rect(snake.x - 20, snake.y, 20, 20)
-snake_segment = SnakeBodySegment(screen=screen)
+snake_head = SnakeBodySegment(screen=screen)
+snake_body = SnakeBodySegment(screen=screen, next_segment=snake_head)
+snake_head.previous_segment = snake_body
 
 
 while running:
@@ -27,20 +27,25 @@ while running:
 
     screen.fill('black')
 
-    snake_segment.move_segment()
-    pygame.draw.rect(screen, "green", snake_segment.current_segment)
+    snake_head.move_segment()
+
+    snake_part = snake_head
+
+    while snake_part:
+        pygame.draw.rect(screen, "green", snake_part.current_segment)
+        snake_part = snake_part.previous_segment
 
     # pygame.draw.rect(screen, "green", snake)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
-        snake_segment.current_direction = 'up'
+        snake_head.update_direction = 'up'
     if keys[pygame.K_s]:
-        snake_segment.current_direction = 'down'
+        snake_head.current_direction = 'down'
     if keys[pygame.K_a]:
-        snake_segment.current_direction = 'left'
+        snake_head.current_direction = 'left'
     if keys[pygame.K_d]:
-        snake_segment.current_direction = 'right'
+        snake_head.current_direction = 'right'
 
 
     pygame.display.flip()
