@@ -10,10 +10,19 @@ class SnakeHead:
     pass
 
 class Food:
-    def __init__(self, screen):
+    def __init__(self, screen, food_width: int = 20, food_height: int = 20):
         random_x = math.floor(random.uniform(0, (screen.get_width() + 1)))
         random_y = math.floor(random.uniform(0, (screen.get_height() + 1)))
-        self.item = Rect(random_x, random_y, 20, 20)
+        self.screen = screen
+        self.food_width = food_width
+        self.food_height = food_height
+        self.item = Rect(random_x, random_y, self.food_width, self.food_height)
+
+    def move(self):
+        """Moves the food to a random place"""
+        random_x = math.floor(random.uniform(0, (self.screen.get_width() + 1)))
+        random_y = math.floor(random.uniform(0, (self.screen.get_height() + 1)))
+        pygame.Rect.update(self.item, random_x, random_y, self.food_width, self.food_height)
 
 class SnakeBodySegment:
     def __init__(self, screen, next_segment=None, previous_segment=None, snake_speed: int = 5):
