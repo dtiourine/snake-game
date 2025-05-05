@@ -1,7 +1,7 @@
 import pygame
 from pygame import Rect
 
-from src.snake_components import SnakeBodySegment
+from src.snake_components import SnakeBodySegment, Food
 
 pygame.init()
 
@@ -21,6 +21,7 @@ snake_body = SnakeBodySegment(screen=screen, next_segment=snake_head)
 snake_head.previous_segment = snake_body
 snake_body_2 = SnakeBodySegment(screen=screen, next_segment=snake_body)
 snake_body.previous_segment = snake_body_2
+food = Food(screen=screen)
 
 
 while running:
@@ -33,6 +34,8 @@ while running:
     snake_head.move_segment()
 
     snake_part = snake_head
+
+    pygame.draw.rect(screen, "red", food.item)
 
     while snake_part:
         pygame.draw.rect(screen, "green", snake_part.current_segment)

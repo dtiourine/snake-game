@@ -1,4 +1,6 @@
 import pygame
+import math
+import random
 from pygame import Rect
 
 class Snake:
@@ -7,6 +9,11 @@ class Snake:
 class SnakeHead:
     pass
 
+class Food:
+    def __init__(self, screen):
+        random_x = math.floor(random.uniform(0, (screen.get_width() + 1)))
+        random_y = math.floor(random.uniform(0, (screen.get_height() + 1)))
+        self.item = Rect(random_x, random_y, 20, 20)
 
 class SnakeBodySegment:
     def __init__(self, screen, next_segment=None, previous_segment=None, snake_speed: int = 5):
