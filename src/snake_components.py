@@ -21,8 +21,11 @@ class SnakeBodySegment:
         self.next_segment = next_segment
         self.previous_segment = previous_segment
         self.snake_speed = snake_speed
+        self.next_segment_turning_point = None
+        self.next_segment_turning_point_direction = None
 
     def move_segment(self):
+        """Moves the segment according to the current direction """
         if self.current_direction == 'right':
             self.current_segment = pygame.Rect.move(self.current_segment, self.snake_speed, 0)
         elif self.current_direction == 'left':
@@ -34,15 +37,27 @@ class SnakeBodySegment:
         else:
             raise ValueError(f'Invalid direction: {self.current_direction}')
 
+        # If the coordinates of the current segment match the coordinates of the turning point of the next segment
+        # then turn the current segment
+        if (self.current_segment.x, self.current_segment.y) == self.next_segment_turning_point:
+            self.update_direction(direction=self.next_segment_turning_point_direction)
+
         if self.previous_segment:
             self.previous_segment.move_segment()
 
     def update_direction(self, direction: str):
-        """Updates direction of segment to match direction of next segment"""
+        """Updates direction of segment to match direction of argument"""
+
+        # If the snake segment is turning and there is another segment behind it
         if direction != self.current_direction:
+            if self.previous_segment:
+                # Have the previous segment remember where this segment turned
+                self.previous_segment.next_segment_turning_point = (self.current_segment.x, self.current_segment.y)
+                self.previous_segment.next_segment_turning_point_direction = direction
+
+                # self.previous_segment.update_direction(direction)
+
             self.current_direction = direction
-        elif self.previous_segment:
-            self.previous_segment.update_direction(direction)
 
 
     def get_direction(self):
