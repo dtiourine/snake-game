@@ -17,6 +17,7 @@ snake_speed = 5
 
 snake = Rect(screen.get_width() / 2, screen.get_height() / 2, 20, 20)
 snake_body = Rect(snake.x - 20, snake.y, 20, 20)
+snake_segment = SnakeBodySegment(screen=screen)
 
 
 while running:
@@ -26,8 +27,10 @@ while running:
 
     screen.fill('black')
 
-    snake_segment = SnakeBodySegment(screen=screen)
     snake_segment.move_segment()
+    pygame.draw.rect(screen, "green", snake_segment.current_segment)
+
+    # pygame.draw.rect(screen, "green", snake)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w]:
@@ -38,8 +41,6 @@ while running:
         snake_segment.current_direction = 'left'
     if keys[pygame.K_d]:
         snake_segment.current_direction = 'right'
-
-
 
 
     pygame.display.flip()

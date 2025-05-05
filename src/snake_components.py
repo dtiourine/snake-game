@@ -17,7 +17,7 @@ class SnakeBodySegment:
             self.current_direction = 'right'
             self.current_segment = Rect(screen.get_width() / 2, screen.get_height() / 2, 20, 20)
 
-        pygame.draw.rect(screen, "green", self.current_segment)
+        # pygame.draw.rect(screen, "green", self.current_segment)
         self.next_segment = next_segment
         self.snake_speed = snake_speed
 
@@ -32,6 +32,10 @@ class SnakeBodySegment:
             self.current_segment = pygame.Rect.move(self.current_segment, 0, self.snake_speed)
         else:
             raise ValueError(f'Invalid direction: {self.current_direction}')
+
+    def update_direction(self):
+        """Updates direction of segment to match direction of next segment"""
+        raise NotImplementedError("This function hasn't been implemented yet")
 
     def get_direction(self):
         raise NotImplementedError("This function hasn't been implemented yet")
