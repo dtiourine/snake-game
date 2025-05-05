@@ -3,11 +3,6 @@ import math
 import random
 from pygame import Rect
 
-class Snake:
-    pass
-
-class SnakeHead:
-    pass
 
 class Food:
     def __init__(self, screen, food_width: int = 20, food_height: int = 20):
@@ -24,6 +19,7 @@ class Food:
         random_y = math.floor(random.uniform(0, (self.screen.get_height() + 1)))
         pygame.Rect.update(self.item, random_x, random_y, self.food_width, self.food_height)
 
+
 class SnakeBodySegment:
     def __init__(self, screen, next_segment=None, previous_segment=None, snake_speed: int = 5):
         if next_segment:
@@ -34,6 +30,7 @@ class SnakeBodySegment:
             self.current_segment = Rect(screen.get_width() / 2, screen.get_height() / 2, 20, 20)
 
         # pygame.draw.rect(screen, "green", self.current_segment)
+        self.screen = screen
         self.next_segment = next_segment
         self.previous_segment = previous_segment
         self.snake_speed = snake_speed
@@ -85,9 +82,17 @@ class SnakeBodySegment:
 
             self.current_direction = direction
 
-
     def get_direction(self):
         return self.current_direction
+
+    def add_body_segment(self):
+        if self.previous_segment:
+            self.previous_segment.add_body_segment()
+        else:
+            new_body = SnakeBodySegment(screen=self.screen, next_segment=self)
+            self.previous_segment = new_body
+
+
 
 
 

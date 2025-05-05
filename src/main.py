@@ -43,6 +43,7 @@ while running:
 
     if pygame.Rect.colliderect(snake_head.current_segment, food.item):
         food.move()
+        snake_head.add_body_segment()
 
     # pygame.draw.rect(screen, "green", snake)
 
