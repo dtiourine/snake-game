@@ -19,6 +19,8 @@ direction = 'right'
 snake_head = SnakeBodySegment(screen=screen)
 snake_body = SnakeBodySegment(screen=screen, next_segment=snake_head)
 snake_head.previous_segment = snake_body
+snake_body_2 = SnakeBodySegment(screen=screen, next_segment=snake_body)
+snake_body.previous_segment = snake_body_2
 
 
 while running:
