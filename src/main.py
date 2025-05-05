@@ -39,11 +39,10 @@ while running:
 
     while snake_part:
         pygame.draw.rect(screen, "green", snake_part.current_segment)
-
-        if pygame.Rect.contains(snake_part.current_segment, food.item):
-            print("COLLIDED")
-
         snake_part = snake_part.previous_segment
+
+    if pygame.Rect.colliderect(snake_head.current_segment, food.item):
+        food.move()
 
     # pygame.draw.rect(screen, "green", snake)
 
@@ -58,8 +57,6 @@ while running:
         direction = 'left'
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         direction = 'right'
-    if keys[pygame.K_SPACE]:
-        food.move()
 
     pygame.display.flip()
 
