@@ -15,7 +15,7 @@ def calculate_new_head_position(current_x: float, current_y: float, direction: s
     else:
         raise ValueError(f'Invalid direction: {direction}')
 
-    return (new_x, new_y)
+    return new_x, new_y
 
 def draw_snake(screen, positions: list[tuple[float, float]], color: str = "green") -> None:
     for x, y in positions:

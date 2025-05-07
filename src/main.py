@@ -1,8 +1,7 @@
 import pygame
-from jedi.debug import speed
 from pygame import Rect
 
-from src.snake_components import Snake, Food
+from src.food import Food
 from src.utils import calculate_new_head_position, draw_snake, game_over_screen
 
 pygame.init()
@@ -19,11 +18,6 @@ start_x = screen.get_width() / 2
 start_y = screen.get_height() / 2
 snake_positions = [(start_x, start_y)]
 score = 0
-
-# player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-# snake = Rect(left=screen.get_width() / 2, top =  screen.get_height() / 2, width=1, height=1 )
-
-# snake = Snake(screen=screen, snake_speed=snake_speed)
 
 snake_speed = 4
 food = Food(screen=screen)
@@ -71,8 +65,6 @@ while running:
 
     draw_snake(screen=screen, positions=snake_positions)
     pygame.draw.rect(screen, "red", food.item)
-
-    # pygame.draw.rect(screen, "red",.item)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w] or keys[pygame.K_UP]:
