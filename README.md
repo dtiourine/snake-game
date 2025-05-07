@@ -26,7 +26,7 @@ A simple Python implementation of the classic Snake game. The player controls a 
 
 3. Run the game
    ```
-   python main.py
+   python snake.py
    ```
 
 ## How to Play
