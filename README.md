@@ -2,8 +2,6 @@
 
 A simple Python implementation of the classic Snake game. The player controls a snake that moves around the screen, eating food to grow longer while avoiding collisions with the walls and itself.
 
-![Snake Game Demo](https://github.com/user-attachments/assets/09c24b1e-93cc-4a74-8b43-f2e90c00ce38)
-
 <p align="center">
   <img src="https://github.com/user-attachments/assets/09c24b1e-93cc-4a74-8b43-f2e90c00ce38" alt="Snake Game Demo" width="600"/>
 </p>
