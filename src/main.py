@@ -3,7 +3,7 @@ from jedi.debug import speed
 from pygame import Rect
 
 from src.snake_components import Snake, Food
-from src.utils import calculate_new_head_position, draw_snake
+from src.utils import calculate_new_head_position, draw_snake, game_over_screen
 
 pygame.init()
 pygame.font.init()
@@ -51,8 +51,7 @@ while running:
     #             pygame.quit()
 
     if new_y > screen.get_height() or new_y < 0 or new_x > screen.get_width() or new_x < 0:
-        print("SNAKE WENT OUT OF SCREEN")
-        pygame.quit()
+        game_over_screen(screen=screen, end_reason="Snake went out of screen", score=score)
 
     if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), food.item):
         food.move()
