@@ -3,7 +3,7 @@ from jedi.debug import speed
 from pygame import Rect
 
 from src.snake_components import Snake, Food
-from src.utils import calculate_new_head_position, draw_snake
+from src.utils import calculate_new_head_position, draw_snake, grow_tail
 
 pygame.init()
 
@@ -17,8 +17,8 @@ direction = 'right'
 
 start_x = screen.get_width() / 2
 start_y = screen.get_height() / 2
-
 snake_positions = [(start_x, start_y)]
+score = 0
 
 # player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 # snake = Rect(left=screen.get_width() / 2, top =  screen.get_height() / 2, width=1, height=1 )
@@ -42,14 +42,27 @@ while running:
     snake_positions.insert(0, new_head)
 
     new_x, new_y = new_head
+
+    # if len(snake_positions) > 2:
+    #     for x, y in snake_positions[2:]:
+    #         if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), Rect(x, y, 20, 20)):
+    #             print("Snake collided with itself!")
+    #             pygame.quit()
+
+
     if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), food.item):
         food.move()
         growing = True
+        score += 1
     else:
         growing = False
 
     if not growing:
         snake_positions.pop()
+    else:
+        snake_positions.insert(0, new_head)
+        snake_positions = grow_tail(positions=snake_positions, direction=direction)
+
 
     draw_snake(screen=screen, positions=snake_positions)
     pygame.draw.rect(screen, "red", food.item)
