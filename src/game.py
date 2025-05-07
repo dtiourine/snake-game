@@ -13,7 +13,7 @@ def game():
     running = True
     dt = 0
 
-    direction = 'right'
+    direction = 'RIGHT'
 
     start_x = screen.get_width() / 2
     start_y = screen.get_height() / 2
@@ -69,17 +69,17 @@ def game():
 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w] or keys[pygame.K_UP]:
-            if direction != 'down':
-                direction = 'up'
+            if direction != 'DOWN':
+                direction = 'UP'
         if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-            if direction != 'up':
-                direction = 'down'
+            if direction != 'UP':
+                direction = 'DOWN'
         if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-            if direction != 'right':
-                direction = 'left'
+            if direction != 'RIGHT':
+                direction = 'LEFT'
         if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-            if direction != 'left':
-                direction = 'right'
+            if direction != 'LEFT':
+                direction = 'RIGHT'
 
         score_text = font.render(f'Score: {score}', True, (255, 255, 255))
         screen.blit(score_text, (10, 10))

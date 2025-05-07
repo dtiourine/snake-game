@@ -4,13 +4,13 @@ import sys
 from pygame import Rect
 
 def calculate_new_head_position(current_x: float, current_y: float, direction: str, snake_speed: int):
-    if direction == 'right':
+    if direction == 'RIGHT':
         new_x, new_y = current_x + snake_speed, current_y
-    elif direction == 'left':
+    elif direction == 'LEFT':
         new_x, new_y = current_x - snake_speed, current_y
-    elif direction == 'up':
+    elif direction == 'UP':
         new_x, new_y = current_x, current_y - snake_speed
-    elif direction == 'down':
+    elif direction == 'DOWN':
         new_x, new_y = current_x, current_y + snake_speed
     else:
         raise ValueError(f'Invalid direction: {direction}')
