@@ -2,8 +2,9 @@
 
 A simple Python implementation of the classic Snake game. The player controls a snake that moves around the screen, eating food to grow longer while avoiding collisions with the walls and itself.
 
-(INSERT GIF HERE)
-![Snake Game Screenshot](screenshot.png)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/09c24b1e-93cc-4a74-8b43-f2e90c00ce38" alt="Snake Game Demo" width="600"/>
+</p>
 
 ### Prerequisites
 
@@ -14,7 +15,7 @@ A simple Python implementation of the classic Snake game. The player controls a 
 
 1. Clone the repository
    ```
-   git clone https://github.com/your-username/snake-game.git
+   git clone https://github.com/dtiourine/snake-game.git
    cd snake-game
    ```
 
@@ -30,11 +31,7 @@ A simple Python implementation of the classic Snake game. The player controls a 
 
 ## How to Play
 
-- Use arrow keys to control the snake
+- Use arrow or WASD keys to control the snake
 - Eat the food to grow longer and increase your score
 - Avoid hitting the walls or yourself
 - Try to achieve the highest score possible!
-
-## Screenshot
-
-![Snake Game Screenshot](screenshot.png)
