@@ -26,6 +26,7 @@ snake_positions = [(start_x, start_y)]
 # snake = Snake(screen=screen, snake_speed=snake_speed)
 
 snake_speed = 4
+food = Food(screen=screen)
 
 while running:
     for event in pygame.event.get():
@@ -40,12 +41,18 @@ while running:
 
     snake_positions.insert(0, new_head)
 
-    growing = False
+    new_x, new_y = new_head
+    if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), food.item):
+        food.move()
+        growing = True
+    else:
+        growing = False
 
     if not growing:
         snake_positions.pop()
 
     draw_snake(screen=screen, positions=snake_positions)
+    pygame.draw.rect(screen, "red", food.item)
 
     # pygame.draw.rect(screen, "red",.item)
 
