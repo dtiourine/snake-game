@@ -13,7 +13,6 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-# snake_speed = 1
 direction = 'right'
 
 start_x = screen.get_width() / 2
@@ -59,6 +58,9 @@ while running:
         food.move()
         growing = True
         score += 1
+
+        if snake_speed < 6:
+            snake_speed += 0.5
     else:
         growing = False
 
