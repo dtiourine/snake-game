@@ -58,13 +58,17 @@ while running:
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w] or keys[pygame.K_UP]:
-        direction = 'up'
+        if direction != 'down':
+            direction = 'up'
     if keys[pygame.K_s] or keys[pygame.K_DOWN]:
-        direction = 'down'
+        if direction != 'up':
+            direction = 'down'
     if keys[pygame.K_a] or keys[pygame.K_LEFT]:
-        direction = 'left'
+        if direction != 'right':
+            direction = 'left'
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
-        direction = 'right'
+        if direction != 'left':
+            direction = 'right'
     pygame.display.flip()
 
     dt = clock.tick(60) / 1000
