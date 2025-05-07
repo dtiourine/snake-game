@@ -15,7 +15,7 @@ A simple Python implementation of the classic Snake game. The player controls a 
 
 1. Clone the repository
    ```
-   git clone https://github.com/your-username/snake-game.git
+   git clone https://github.com/dtiourine/snake-game.git
    cd snake-game
    ```
 
