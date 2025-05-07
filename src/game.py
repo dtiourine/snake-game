@@ -39,14 +39,11 @@ def game():
 
         new_x, new_y = new_head
 
-        # if len(snake_positions) > 2:
-        #     for x, y in snake_positions[2:]:
-        #         if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), Rect(x, y, 20, 20)):
-        #             print("Snake collided with itself!")
-        #             pygame.quit()
+        if new_head in snake_positions[1:]:
+            game_over_screen(screen=screen, end_reason="Snake collided with itself!", score=score)
 
         if new_y > screen.get_height() or new_y < 0 or new_x > screen.get_width() or new_x < 0:
-            game_over_screen(screen=screen, end_reason="Snake went out of screen", score=score)
+            game_over_screen(screen=screen, end_reason="Snake went out of screen!", score=score)
 
         if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), food.item):
             food.move()
