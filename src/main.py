@@ -61,7 +61,6 @@ while running:
         snake_positions.pop()
     else:
         snake_positions.insert(0, new_head)
-        snake_positions = grow_tail(positions=snake_positions, direction=direction)
 
 
     draw_snake(screen=screen, positions=snake_positions)
