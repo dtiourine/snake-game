@@ -3,9 +3,10 @@ from jedi.debug import speed
 from pygame import Rect
 
 from src.snake_components import Snake, Food
-from src.utils import calculate_new_head_position, draw_snake, grow_tail
+from src.utils import calculate_new_head_position, draw_snake
 
 pygame.init()
+pygame.font.init()
 
 screen = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
@@ -29,6 +30,7 @@ snake_speed = 4
 food = Food(screen=screen)
 
 while running:
+    font = pygame.font.Font(None, 36)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -81,6 +83,10 @@ while running:
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         if direction != 'left':
             direction = 'right'
+
+    score_text = font.render(f'Score: {score}', True, (255, 255, 255))
+    screen.blit(score_text, (10, 10))
+
     pygame.display.flip()
 
     dt = clock.tick(60) / 1000
