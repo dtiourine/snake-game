@@ -43,7 +43,7 @@ def game():
             game_over_screen(screen=screen, end_reason="Snake collided with itself!", score=score)
 
         if new_y > screen.get_height() or new_y < 0 or new_x > screen.get_width() or new_x < 0:
-            game_over_screen(screen=screen, end_reason="Snake went out of screen!", score=score)
+            game_over_screen(screen=screen, end_reason="Snake hit the wall!", score=score)
 
         if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), food.item):
             food.move()
