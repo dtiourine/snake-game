@@ -51,6 +51,9 @@ while running:
     #             print("Snake collided with itself!")
     #             pygame.quit()
 
+    if new_y > screen.get_height() or new_y < 0 or new_x > screen.get_width() or new_x < 0:
+        print("SNAKE WENT OUT OF SCREEN")
+        pygame.quit()
 
     if pygame.Rect.colliderect(Rect(new_x, new_y, 20, 20), food.item):
         food.move()
