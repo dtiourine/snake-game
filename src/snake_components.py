@@ -3,6 +3,40 @@ import math
 import random
 from pygame import Rect
 
+class Snake:
+    def __init__(self, screen, snake_speed: int = 5, direction: str = "right"):
+        self.screen = screen
+        self.snake_speed = snake_speed
+        self.direction = direction
+
+        starting_x = screen.get_width() /2
+        starting_y = screen.get_height() / 2
+        self.body_segments = [Rect(starting_x, starting_y, 20, 20)]
+        self.positions = [(starting_x, starting_y)]
+
+    def move(self, ate_food: bool):
+        current_x, current_y = self.positions[-1]
+        movement_magnitude = 1
+        if self.direction == 'right':
+            new_x, new_y = current_x + movement_magnitude, current_y
+            self.body_segments.append(Rect(new_x, new_y, 20, 20))
+        elif self.direction == 'left':
+            new_x, new_y = current_x - movement_magnitude, current_y
+            self.body_segments.append(Rect(new_x, new_y, 20, 20))
+        elif self.direction == 'up':
+            new_x, new_y = current_x, current_y + movement_magnitude
+            self.body_segments.append(Rect(new_x, new_y, 20, 20))
+        elif self.direction == 'down':
+            new_x, new_y = current_x, current_y - movement_magnitude
+            self.body_segments.append(Rect(new_x, new_y, 20, 20))
+        else:
+            raise ValueError(f'Invalid direction: {self.direction}')
+
+        # if not ate_food:
+        #     self.positions.pop(0)
+        #     self.body_segments.pop(0)
+
+        self.positions.append((new_x, new_y))
 
 class Food:
     def __init__(self, screen, food_width: int = 20, food_height: int = 20):
@@ -21,45 +55,46 @@ class Food:
 
 
 class SnakeBodySegment:
-    def __init__(self, screen, next_segment=None, previous_segment=None, snake_speed: int = 5):
+    def __init__(self, screen, next_segment=None, previous_segment=None, snake_speed: int = 5, head: bool = False):
         if next_segment:
             self.current_direction = next_segment.get_direction()
-
-            if self.current_direction == "up":
-                self.current_segment = Rect(next_segment.current_segment.x, next_segment.current_segment.y - 20, 20, 20)
-            elif self.current_direction == "down":
-                self.current_segment = Rect(next_segment.current_segment.x, next_segment.current_segment.y + 20, 20, 20)
-            elif self.current_direction == "left":
-                self.current_segment = Rect(next_segment.current_segment.x + 20, next_segment.current_segment.y, 20, 20)
-            elif self.current_direction == "right":
-                self.current_segment = Rect(next_segment.current_segment.x - 20, next_segment.current_segment.y, 20, 20)
-            else:
-                raise ValueError("Invalid direction when initializing SnakeBodySegment")
 
         else:
             self.current_direction = 'right'
             self.current_segment = Rect(screen.get_width() / 2, screen.get_height() / 2, 20, 20)
 
         # pygame.draw.rect(screen, "green", self.current_segment)
+        self.head = head
         self.screen = screen
         self.next_segment = next_segment
         self.previous_segment = previous_segment
         self.snake_speed = snake_speed
         self.next_segment_turning_points = []
         self.next_segment_turning_point_directions = []
+        self.path = []
 
     def move_segment(self):
         """Moves the segment according to the current direction """
-        if self.current_direction == 'right':
-            self.current_segment = pygame.Rect.move(self.current_segment, self.snake_speed, 0)
-        elif self.current_direction == 'left':
-            self.current_segment = pygame.Rect.move(self.current_segment, -self.snake_speed, 0)
-        elif self.current_direction == 'up':
-            self.current_segment = pygame.Rect.move(self.current_segment, 0, -self.snake_speed)
-        elif self.current_direction == 'down':
-            self.current_segment = pygame.Rect.move(self.current_segment, 0, self.snake_speed)
+
+        # If the body part is the head, then move on its own
+        if self.head:
+            if self.current_direction == 'right':
+                self.current_segment = pygame.Rect.move(self.current_segment, self.snake_speed, 0)
+            elif self.current_direction == 'left':
+                self.current_segment = pygame.Rect.move(self.current_segment, -self.snake_speed, 0)
+            elif self.current_direction == 'up':
+                self.current_segment = pygame.Rect.move(self.current_segment, 0, -self.snake_speed)
+            elif self.current_direction == 'down':
+                self.current_segment = pygame.Rect.move(self.current_segment, 0, self.snake_speed)
+            else:
+                raise ValueError(f'Invalid direction: {self.current_direction}')
         else:
-            raise ValueError(f'Invalid direction: {self.current_direction}')
+            # If the body part is not the head, then move by following what the next segment did
+            path_of_next_segment = self.next_segment.path
+
+
+        self.path.append((self.current_segment.x, self.current_segment.y))
+
 
         # If the coordinates of the current segment match the coordinates of the turning point of the next segment
         # then turn the current segment in that same direction

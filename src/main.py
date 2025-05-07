@@ -1,7 +1,9 @@
 import pygame
+from jedi.debug import speed
 from pygame import Rect
 
-from src.snake_components import SnakeBodySegment, Food
+from src.snake_components import Snake, Food
+from src.utils import calculate_new_head_position, draw_snake
 
 pygame.init()
 
@@ -10,19 +12,20 @@ clock = pygame.time.Clock()
 running = True
 dt = 0
 
-snake_speed = 5
+# snake_speed = 1
 direction = 'right'
+
+start_x = screen.get_width() / 2
+start_y = screen.get_height() / 2
+
+snake_positions = [(start_x, start_y)]
 
 # player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 # snake = Rect(left=screen.get_width() / 2, top =  screen.get_height() / 2, width=1, height=1 )
 
-snake_head = SnakeBodySegment(screen=screen)
-snake_body = SnakeBodySegment(screen=screen, next_segment=snake_head)
-snake_head.previous_segment = snake_body
-snake_body_2 = SnakeBodySegment(screen=screen, next_segment=snake_body)
-snake_body.previous_segment = snake_body_2
-food = Food(screen=screen)
+# snake = Snake(screen=screen, snake_speed=snake_speed)
 
+snake_speed = 4
 
 while running:
     for event in pygame.event.get():
@@ -31,23 +34,20 @@ while running:
 
     screen.fill('black')
 
-    snake_head.move_segment()
+    current_x, current_y = snake_positions[0]
 
-    snake_part = snake_head
+    new_head = calculate_new_head_position(current_x, current_y, direction=direction, snake_speed=snake_speed)
 
-    pygame.draw.rect(screen, "red", food.item)
+    snake_positions.insert(0, new_head)
 
-    while snake_part:
-        pygame.draw.rect(screen, "green", snake_part.current_segment)
-        snake_part = snake_part.previous_segment
+    growing = False
 
-    if pygame.Rect.colliderect(snake_head.current_segment, food.item):
-        food.move()
-        snake_head.add_body_segment()
+    if not growing:
+        snake_positions.pop()
 
-    # pygame.draw.rect(screen, "green", snake)
+    draw_snake(screen=screen, positions=snake_positions)
 
-    snake_head.update_direction(direction)
+    # pygame.draw.rect(screen, "red",.item)
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_w] or keys[pygame.K_UP]:
@@ -58,7 +58,6 @@ while running:
         direction = 'left'
     if keys[pygame.K_d] or keys[pygame.K_RIGHT]:
         direction = 'right'
-
     pygame.display.flip()
 
     dt = clock.tick(60) / 1000
